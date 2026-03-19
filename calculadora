@@ -1,0 +1,151 @@
+[5:04 p.m., 19/3/2026] monsi: <!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOMO.NAILS - Calculadora Completa</title>
+<style>
+    body { font-family: Arial, sans-serif; background-color: #fff0f5; color: #333; padding: 20px; }
+    h1 { color: #ff69b4; }
+    label { display: block; margin-top: 10px; }
+    select, input { margin-top: 5px; padding: 5px; width: 100%; max-width: 300px; }
+    .service { margin-bottom: 20px; padding: 10px; border: 1px solid #ffb6c1; border-radius: 10px; background-color: #fff0f5cc; }
+    button { padding: 10px 20px; background-color: #ff69b4; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px; }
+    button:hover { background-color: #ff149…
+[5:05 p.m., 19/3/2026] monsi: <!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOMO.NAILS - Calculadora Completa</title>
+<style>
+    body { font-family: Arial, sans-serif; background-color: #fff0f5; color: #333; padding: 20px; }
+    h1 { color: #ff69b4; }
+    label { display: block; margin-top: 10px; }
+    select, input { margin-top: 5px; padding: 5px; width: 100%; max-width: 300px; }
+    .service { margin-bottom: 20px; padding: 10px; border: 1px solid #ffb6c1; border-radius: 10px; background-color: #fff0f5cc; }
+    button { padding: 10px 20px; background-color: #ff69b4; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px; }
+    button:hover { background-color: #ff1493; }
+    .total { font-size: 1.5em; font-weight: bold; margin-top: 20px; }
+    .add-service { margin-bottom: 20px; cursor: pointer; color: #ff1493; text-decoration: underline; }
+</style>
+</head>
+<body>
+<h1>MOMO.NAILS - Calculadora Completa</h1>
+
+<div id="servicesContainer"></div>
+<div class="add-service" onclick="agregarServicio()">+ Agregar servicio</div>
+
+<button onclick="calcularTotal()">Calcular Total</button>
+<div class="total" id="total">$0</div>
+
+<script>
+const precios = {
+    tradicional: 150,
+    semipermanente: 200,
+    tip1: 200,
+    tip2: 350,
+    polygel1: 300,
+    polygel2: 450,
+    kapping1: 300,
+    kapping2: 450,
+    presson1: 350,
+    presson2: 500,
+    retiro1: 80,
+    retiro2: 100,
+    retoque: 150
+};
+
+const decoracionesEspeciales = {
+    "0": 0,
+    "5": 5,
+    "5aurora": 5,
+    "10sueter": 10,
+    "10perlas": 10,
+    "5blooming": 5,
+    "5ojoc": 5,
+    "5relieve": 5,
+    "10tresd": 10,
+    "50nas": 50,
+    "200naa": 200
+};
+
+let servicioCount = 0;
+
+function agregarServicio() {
+    servicioCount++;
+    const container = document.getElementById("servicesContainer");
+    const div = document.createElement("div");
+    div.classList.add("service");
+    div.id = "service" + servicioCount;
+    div.innerHTML = `
+        <label>Técnica:</label>
+        <select class="servicio">
+            <option value="tradicional">Manicure Tradicional - $150</option>
+            <option value="semipermanente">Semipermanente - $200</option>
+            <option value="tip1">Tip Largo 1-3 + 3 decoraciones incluidas - $200</option>
+            <option value="tip2">Tip Largo 4-6 + 3 decoraciones incluidas - $350</option>
+            <option value="polygel1">Polygel Largo 1-3 + 3 decoraciones incluidas - $300</option>
+            <option value="polygel2">Polygel Largo 4-6 + 3 decoraciones incluidas - $450</option>
+            <option value="kapping1">Kapping Largo 1-3 - $300</option>
+            <option value="kapping2">Kapping Largo 4-6 - $450</option>
+            <option value="presson1">Press On Sencillo - $350</option>
+            <option value="presson2">Press On Mano alzada hasta 3 decoraciones - $500</option>
+            <option value="retiro1">Retiro solo semipermanente - $80</option>
+            <option value="retiro2">Retiro completo - $100</option>
+            <option value="retoque">Retoque - $150</option>
+        </select>
+
+        <label>Decoraciones extra por uña ($3 c/u):</label>
+        <input type="number" class="decoraciones" min="0" value="0">
+
+        <label>Tipo de decoración extra:</label>
+        <select class="tipoDecoracion">
+            <option value="0">Ninguna</option>
+            <option value="5">Espejo - $5</option>
+            <option value="5aurora">Aurora - $5</option>
+            <option value="10sueter">Sueter - $10</option>
+            <option value="10perlas">Corona de perlas - $10</option>
+            <option value="5blooming">Blooming - $5</option>
+            <option value="5ojoc">Ojo de gato - $5</option>
+            <option value="5relieve">Relieve - $5</option>
+            <option value="10tresd">3D - $10</option>
+            <option value="50nas">Nail Art Simple - $50</option>
+            <option value="200naa">Nail Art Avanzado - $200</option>
+        </select>
+
+        <label>Cantidad de tonos extra ($20 c/u):</label>
+        <input type="number" class="tonosExtra" min="0" value="0">
+
+        <div style="margin-top:10px; color:red; cursor:pointer;" onclick="eliminarServicio(${servicioCount})">Eliminar este servicio</div>
+    `;
+    container.appendChild(div);
+}
+
+function eliminarServicio(id) {
+    const div = document.getElementById("service" + id);
+    div.remove();
+}
+
+function calcularTotal() {
+    let total = 0;
+    const servicios = document.querySelectorAll(".service");
+    servicios.forEach(s => {
+        const tipo = s.querySelector(".servicio").value;
+        const decor = parseInt(s.querySelector(".decoraciones").value) || 0;
+        const tipoDeco = s.querySelector(".tipoDecoracion").value;
+        const tonos = parseInt(s.querySelector(".tonosExtra").value) || 0;
+
+        total += precios[tipo];
+        total += decor * 3;
+        total += decoracionesEspeciales[tipoDeco];
+        total += tonos * 20;
+    });
+    document.getElementById("total").innerText = "$" + total;
+}
+
+// Inicialmente agregamos un servicio
+agregarServicio();
+</script>
+</body>
+</html>
